@@ -1,0 +1,91 @@
+:root {
+  color-scheme: light dark;
+  --ground: #ffffff;
+  --ink: #16181d;
+  --ink-mute: #626878;
+  --rule: #e4e5ec;
+  --sunk: #f4f5f8;
+  --danger: #b03a2e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #101117;
+    --ink: #edeef4;
+    --ink-mute: #8c92a6;
+    --rule: #292c38;
+    --sunk: #1b1d27;
+    --danger: #ee8878;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.55;
+}
+
+main {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.35rem;
+}
+
+header p,
+footer p {
+  margin: 0;
+  color: var(--ink-mute);
+  font-size: 0.9rem;
+}
+
+code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.85em;
+  background: var(--sunk);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+/* CourierInbox takes its height from this parent. */
+.inbox {
+  height: 32rem;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.error {
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--danger);
+  border-radius: 8px;
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.25rem;
+}
+
+/* Astro renders an island inside <astro-island>, which is display:inline by
+   default. Without this the height on .inbox has nothing to sit in. */
+astro-island {
+  display: block;
+}

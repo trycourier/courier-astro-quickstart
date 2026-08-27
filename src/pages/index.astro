@@ -1,0 +1,40 @@
+---
+import Inbox from "../components/CourierInbox";
+import { DEMO_USER_ID, DEMO_USER_NAME } from "../lib/demo-user";
+import "../styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Courier Inbox — Astro quickstart</title>
+    <meta name="description" content="A working Courier Inbox in an Astro app." />
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <h1>Courier Inbox</h1>
+        <p>
+          Signed in as <strong>{DEMO_USER_NAME}</strong> <code>{DEMO_USER_ID}</code>
+        </p>
+      </header>
+
+      {/*
+        client:only, not client:load. The inbox renders as a custom element and
+        has nothing to show on the server, so there is no server pass worth
+        having — and client:only is what keeps the SDK out of the server module
+        graph entirely. See the README for why that second part matters.
+      */}
+      <Inbox client:only="react" />
+
+      <footer>
+        <p>
+          Empty? Run <code>npm run send</code> in another terminal. The message arrives
+          here in real time — no refresh.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>

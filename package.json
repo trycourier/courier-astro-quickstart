@@ -1,0 +1,35 @@
+{
+  "name": "courier-astro-quickstart",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A working Courier Inbox in an Astro app: server-issued JWT, real-time inbox, one send script.",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "start": "node ./dist/server/entry.mjs",
+    "preview": "astro preview",
+    "send": "tsx scripts/send.ts",
+    "typecheck": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/node": "^11.1.4",
+    "@astrojs/react": "^6.0.4",
+    "@trycourier/courier": "^9.3.0",
+    "@trycourier/courier-react": "^9.2.12",
+    "astro": "^7.2.9",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "dotenv": "^16.4.7",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.0"
+  }
+}
