@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { COURIER_API_KEY } from "astro:env/server";
 import Courier from "@trycourier/courier";
-import { DEMO_USER_ID } from "../../../lib/demo-user";
+import { DEMO_USER_ID } from "@/lib/demo-user";
 
 /** This route is per-request, so it must not be prerendered at build time. */
 export const prerender = false;
@@ -14,12 +14,10 @@ export const prerender = false;
  * this route, gets a scoped token, and hands that to the SDK.
  */
 export const GET: APIRoute = async () => {
-  // Declared in astro.config.mjs as a server secret, so this reads the live
-  // environment on every request. Reading import.meta.env here instead would
-  // compile to the key's build-time value as a string literal.
-  const apiKey = COURIER_API_KEY;
-
-  if (!apiKey) {
+  // COURIER_API_KEY is declared in astro.config.mjs as a server secret, so it
+  // reads the live environment on every request. Reading import.meta.env here
+  // instead would compile to the key's build-time value as a string literal.
+  if (!COURIER_API_KEY) {
     return Response.json(
       { error: "COURIER_API_KEY is not set. Copy .env.example to .env, add your key, and restart the dev server." },
       { status: 500 },
@@ -33,7 +31,7 @@ export const GET: APIRoute = async () => {
   const userId = DEMO_USER_ID;
   // ─────────────────────────────────────────────────────────────────────────
 
-  const client = new Courier({ apiKey });
+  const client = new Courier({ apiKey: COURIER_API_KEY });
 
   try {
     const { token } = await client.auth.issueToken({

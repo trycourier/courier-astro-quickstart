@@ -4,10 +4,10 @@ import { CourierInbox, useCourier } from "@trycourier/courier-react";
 /**
  * The Courier Inbox, signed in with a token from /api/courier/token.
  *
- * This is an Astro island: the page renders it with client:load, so Astro
- * ships it to the browser and hydrates it there. The inbox renders as a custom
- * element, which only exists in the browser, so signing in belongs in an
- * effect rather than at module scope.
+ * This is an Astro island: the page renders it with client:only, so Astro
+ * ships it to the browser and mounts it there without a server pass. The inbox
+ * renders as a custom element, which only exists in the browser, so signing in
+ * belongs in an effect rather than at module scope.
  */
 export default function Inbox() {
   const courier = useCourier();
