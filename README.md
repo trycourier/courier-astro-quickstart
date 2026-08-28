@@ -46,7 +46,7 @@ agree without you wiring up auth first. In your own app, read it from your sessi
 read it there, never from the request. A caller who can name any user can read that user's
 inbox.
 
-## Three things that are specific to Astro
+## Two things that are specific to Astro
 
 ### `client:only`, not `client:load`
 
@@ -56,28 +56,6 @@ inbox.
 
 The inbox renders as a custom element, so a server pass would render nothing and then
 throw it away. `client:load` works too and costs you that wasted pass.
-
-### Named imports need `@trycourier/courier-react` 9.3.0 or newer
-
-On 9.2.12 and earlier, importing the SDK from server code failed:
-
-```
-[vite] Named export 'useCourier' not found. The requested module
-'@trycourier/courier-react' is a CommonJS module, which may not support all
-module.exports as named exports.
-```
-
-The packages shipped both a CommonJS and an ESM bundle but declared no `exports` map.
-Node only reads `main` and never `module`, so it landed on the CommonJS bundle and could
-not read the names out of it. Fixed in
-[courier-web#248](https://github.com/trycourier/courier-web/pull/248), which is why this
-sample requires 9.3.0.
-
-If you are pinned to an older version, `client:only` sidesteps it by keeping the module
-out of the server graph. `vite.ssr.noExternal` is the other fix commonly suggested, and
-it is a trap: it works in `astro dev` and then **fails in `astro build`**, where the
-prerender pass loads the server bundle through Node's own resolver and externalizes the
-package again.
 
 ### The API key is a runtime secret, not a build-time one
 
