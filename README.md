@@ -54,14 +54,12 @@ inbox.
 <Inbox client:only="react" />
 ```
 
-The inbox renders as a custom element, so it has nothing to draw on the server and no
-server pass worth having. `client:only` is also what keeps the SDK out of the server
-module graph — which matters today, because of the next section.
+The inbox renders as a custom element, so a server pass would render nothing and then
+throw it away. `client:load` works too and costs you that wasted pass.
 
-### The SDK's named exports and Node ESM
+### Named imports need `@trycourier/courier-react` 9.3.0 or newer
 
-On `@trycourier/courier-react` 9.2.12 and earlier, importing the SDK from server code
-fails:
+On 9.2.12 and earlier, importing the SDK from server code failed:
 
 ```
 [vite] Named export 'useCourier' not found. The requested module
@@ -69,28 +67,17 @@ fails:
 module.exports as named exports.
 ```
 
-The packages ship both a CommonJS and an ESM bundle, but declare no `exports` map. Node
-only reads `main` and never `module`, so it lands on the CommonJS bundle — and cannot
-read the names out of it, because minification rewrote the export statements into a form
-Node's CommonJS lexer does not recognise.
+The packages shipped both a CommonJS and an ESM bundle but declared no `exports` map.
+Node only reads `main` and never `module`, so it landed on the CommonJS bundle and could
+not read the names out of it. Fixed in
+[courier-web#248](https://github.com/trycourier/courier-web/pull/248), which is why this
+sample requires 9.3.0.
 
-`client:only` sidesteps it: the module never enters the server graph, so nothing tries to
-read its named exports on the server. That is why this sample uses it, and it stays the
-right directive for a browser-only component after the SDK is fixed
-([courier-web#247](https://github.com/trycourier/courier-web/issues/247)).
-
-Adding `vite.ssr.noExternal` to `astro.config.mjs` is the other commonly suggested fix.
-It works in `astro dev` and then **fails in `astro build`**, where the prerender pass
-loads the server bundle through Node's own resolver and externalizes the package again.
-Do not rely on it.
-
-If you do need the SDK in server code — importing a theme constant into `.astro`
-frontmatter, say — use a default import until the fix ships:
-
-```ts
-import courier from "@trycourier/courier-react";
-const { useCourier } = courier;
-```
+If you are pinned to an older version, `client:only` sidesteps it by keeping the module
+out of the server graph. `vite.ssr.noExternal` is the other fix commonly suggested, and
+it is a trap: it works in `astro dev` and then **fails in `astro build`**, where the
+prerender pass loads the server bundle through Node's own resolver and externalizes the
+package again.
 
 ### The API key is a runtime secret, not a build-time one
 

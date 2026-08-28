@@ -19,7 +19,7 @@
     "@astrojs/node": "^11.1.4",
     "@astrojs/react": "^6.0.4",
     "@trycourier/courier": "^9.3.0",
-    "@trycourier/courier-react": "^9.2.12",
+    "@trycourier/courier-react": "^9.3.0",
     "astro": "^7.2.9",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"

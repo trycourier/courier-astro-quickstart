@@ -22,10 +22,10 @@ import "../styles/global.css";
       </header>
 
       {/*
-        client:only, not client:load. The inbox renders as a custom element and
-        has nothing to show on the server, so there is no server pass worth
-        having — and client:only is what keeps the SDK out of the server module
-        graph entirely. See the README for why that second part matters.
+        client:only, not client:load. The inbox renders as a custom element, so
+        a server pass would render nothing and then throw it away. client:load
+        works too, from courier-react 9.3.0 on — it just does that work for no
+        gain. See the README.
       */}
       <Inbox client:only="react" />
 
