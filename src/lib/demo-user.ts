@@ -6,7 +6,7 @@
  * It is pinned to a constant so the token endpoint and the send script agree
  * without you having to wire up auth to see the inbox work.
  */
-export const DEMO_USER_ID = "nomen-nescio";
+export const DEMO_USER_ID = "sarah-bennett";
 
 /** Shown in the UI, and used in the copy the send script ships. */
-export const DEMO_USER_NAME = "Nomen Nescio";
+export const DEMO_USER_NAME = "Sarah Bennett";
