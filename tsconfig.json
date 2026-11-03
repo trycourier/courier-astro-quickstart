@@ -12,7 +12,8 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "types": [
-      "astro/client"
+      "astro/client",
+      "node"
     ],
     "baseUrl": ".",
     "paths": {
