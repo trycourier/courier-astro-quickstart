@@ -11,6 +11,8 @@ src/components/CourierInbox.tsx  signs in and renders the inbox (browser only)
 
 ## Run it
 
+You need Node 22.23.4 or newer.
+
 ```bash
 npm install
 cp .env.example .env   # paste your API key
